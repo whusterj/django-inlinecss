@@ -22,7 +22,7 @@ class InlineCssNode(template.Node):
             path = expression.resolve(context, True)
             if path is not None:
                 path = smart_unicode(path)
-            if settings.DEBUG:
+            if settings.DEBUG or not settings.USE_STATIC_CDN:
                 expanded_path = finders.find(path)
             else:
                 expanded_path = staticfiles_storage.path(path)
