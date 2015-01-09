@@ -22,10 +22,9 @@ class InlineCssNode(template.Node):
             path = expression.resolve(context, True)
             if path is not None:
                 path = smart_unicode(path)
-            if settings.DEBUG or not settings.USE_STATIC_CDN:
-                expanded_path = finders.find(path)
-            else:
-                expanded_path = staticfiles_storage.path(path)
+
+            # NOTE: Different from release version of django-inline.css
+            expanded_path = finders.find(path)
 
             with open(expanded_path) as css_file:
                 css = ''.join((css, css_file.read()))
