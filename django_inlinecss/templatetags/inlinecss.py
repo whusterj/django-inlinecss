@@ -1,9 +1,7 @@
 from django import template
 
-from django.utils.encoding import smart_unicode
+from django.utils.encoding import smart_text
 from django.contrib.staticfiles import finders
-from django.contrib.staticfiles.storage import staticfiles_storage
-from django.conf import settings
 
 from django_inlinecss import conf
 
@@ -21,8 +19,7 @@ class InlineCssNode(template.Node):
         for expression in self.filter_expressions:
             path = expression.resolve(context, True)
             if path is not None:
-                path = smart_unicode(path)
-
+                path = smart_text(path)
             # NOTE: Different from release version of django-inline.css
             expanded_path = finders.find(path)
 
